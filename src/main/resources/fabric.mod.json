@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "pleasant_rotation",
+  "version": "${version}",
+
+  "name": "Pleasant Rotation",
+  "description": "Don't you hate when minecart rotates but you do not?",
+  "authors": [
+    "Szum123321"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+
+  "license": "GPLv3",
+  "icon": "assets/modid/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "szum123321.pleasant_rotation.PleasantRotation"
+    ]
+  },
+  "mixins": [
+    "pr.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.7.4",
+    "fabric": "*",
+    "minecraft": "1.15.x"
+  }
+}
