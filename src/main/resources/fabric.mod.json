@@ -14,14 +14,10 @@
   },
 
   "license": "GPLv3",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/pleasant_rotation/i_am_sorry.png",
 
   "environment": "*",
-  "entrypoints": {
-    "main": [
-      "szum123321.pleasant_rotation.PleasantRotation"
-    ]
-  },
+
   "mixins": [
     "pr.mixins.json"
   ],

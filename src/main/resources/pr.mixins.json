@@ -3,7 +3,8 @@
 	"package": "szum123321.pleasant_rotation.mixin",
 	"compatibilityLevel": "JAVA_8",
 	"mixins": [
-		"EntityMixin"
+		"EntityMinecartMixin",
+		"LivingEntityMixin"
 	],
 	"client": [
 	],
