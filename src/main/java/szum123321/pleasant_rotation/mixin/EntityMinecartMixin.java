@@ -23,6 +23,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.vehicle.AbstractMinecartEntity;
 import net.minecraft.entity.vehicle.MinecartEntity;
 import net.minecraft.world.World;
@@ -38,16 +39,19 @@ public abstract class EntityMinecartMixin extends Entity {
 		super(type, world);
 	}
 
-	@Environment(EnvType.SERVER)
+	@Environment(EnvType.CLIENT)
 	@Inject(method = "tick", at = @At("RETURN"))
 	public void updatePassengersRotation(CallbackInfo ci) {
 		if((Object)this instanceof MinecartEntity) {
 			MinecartEntity me = (MinecartEntity)(Object)this;
 			float deltaYaw = this.yaw - this.prevYaw;
 
+			if(Math.abs(deltaYaw) > 300)
+				return;
+
 			me.getPassengerList()
 					.stream()
-					.filter(e -> e instanceof LivingEntity)
+					.filter(e -> e instanceof PlayerEntity)
 					.forEach(e -> ((YawVelocity) e).addSmoothlyYaw(deltaYaw));
 		}
 	}
