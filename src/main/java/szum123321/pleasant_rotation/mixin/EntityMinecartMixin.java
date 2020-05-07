@@ -18,9 +18,11 @@
 
 package szum123321.pleasant_rotation.mixin;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.vehicle.AbstractMinecartEntity;
 import net.minecraft.entity.vehicle.MinecartEntity;
 import net.minecraft.world.World;
@@ -36,6 +38,7 @@ public abstract class EntityMinecartMixin extends Entity {
 		super(type, world);
 	}
 
+	@Environment(EnvType.SERVER)
 	@Inject(method = "tick", at = @At("RETURN"))
 	public void updatePassengersRotation(CallbackInfo ci) {
 		if((Object)this instanceof MinecartEntity) {
@@ -44,30 +47,8 @@ public abstract class EntityMinecartMixin extends Entity {
 
 			me.getPassengerList()
 					.stream()
-					.filter(e -> e instanceof PlayerEntity)
+					.filter(e -> e instanceof LivingEntity)
 					.forEach(e -> ((YawVelocity) e).addSmoothlyYaw(deltaYaw));
 		}
 	}
-
-/*	@Shadow public float prevYaw;
-
-	@Environment(EnvType.CLIENT)
-	@Inject(method = "setRotation", at = @At("HEAD"))
-	public void updatePassengersRotation(float yaw, float pitch, CallbackInfo ci) {
-		if((Object)this instanceof MinecartEntity) {
-			MinecartEntity minecartEntity = (MinecartEntity)(Object)this;
-
-			if(minecartEntity.hasPassengers()){
-				float deltaYaw = yaw - this.prevYaw;
-
-				minecartEntity.getPassengerList().forEach(e -> {
-					if(e instanceof ClientPlayerEntity){
-
-					}
-				});
-			}
-		}
-	}
-
- */
 }
